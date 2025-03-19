@@ -3,7 +3,7 @@ const express = require('express')
 const morgan = require('morgan')
 const pg = require('pg')
 const client = new pg.Client(process.env.DATABASE_URL || 'postgress://localhost/acme_ice_cream_db');
-const flavors = require('./db')
+// const flavors = require('./db')
 // application initialization
 const app = express();
 
@@ -94,12 +94,12 @@ async function init() {
     );
     `;
 
-    await client.query(SQL)
-    flavors.forEach(async (flav) => {
-        await client.query(`
-            INSERT INTO flavors(name, is_favorite) VALUES($1, $2);
-            `, [flav.name, flav.is_favorite])
-    })
+    // await client.query(SQL)
+    // flavors.forEach(async (flav) => {
+    //     await client.query(`
+    //         INSERT INTO flavors(name, is_favorite) VALUES($1, $2);
+    //         `, [flav.name, flav.is_favorite])
+    // })
     console.log('data connected')
     // Start Server
     const port = process.env.PORT || 3000
