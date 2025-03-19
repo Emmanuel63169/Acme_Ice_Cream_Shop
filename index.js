@@ -31,7 +31,7 @@ app.post('/api/flavors', async (req, res, next) => {
         const SQL = /*sql*/ `
         INSERT INTO flavors(txt, ranking) VALUES($1, $2) RETURNING *;
         `
-        const response = await client.query(SQL, [req.body.txt, req.body.ranking])
+        const response = await client.query(SQL, [req.body.txt, req.body.ranking]);
         res.send(response.rows[0]);
     }catch(error) {
         next(error)
@@ -55,7 +55,7 @@ app.put('/api/flavors/:id', async (req, res, next) => {
 // - Route to delete flavor
 app.delete('/api/flavors/:id', async (req, res, next) => {
     try {
-        const SQL = `
+        const SQL = /*SQL*/ `
             DELETE from flavors
             WHERE id = $1
         `;
@@ -68,12 +68,13 @@ app.delete('/api/flavors/:id', async (req, res, next) => {
 // - Route to update a flavor
 app.put('/api/flavors/:id', async (req, res, next) => {
     try {
-        const SQL = `
+        const SQL = /*SQL*/ `
         UPDATE flavors
         SET txt=$1, ranking=$2, updated_at=now()
         WHERE id=$3 RETURNING *
         `;
-        const response = await client.query(SQL, [req.body.txt, req.doby.ranking, req.params.id]);
+        const response = await client.query(SQL, [req.body.txt, req.body.ranking, req.params.id]);
+        res.send(response.rows[0]);
     } catch(error) {
         next(error)
     }
